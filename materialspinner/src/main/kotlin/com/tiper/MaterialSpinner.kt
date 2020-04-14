@@ -108,6 +108,9 @@ open class MaterialSpinner @JvmOverloads constructor(
      */
     var onItemClickListener: OnItemClickListener? = null
 
+
+    var onPopupShownListener: OnPopupShownListener? = null
+
     /**
      * The layout direction of this view.
      * {@link #LAYOUT_DIRECTION_RTL} if the layout direction is RTL.
@@ -277,6 +280,7 @@ open class MaterialSpinner @JvmOverloads constructor(
         editText.inputType = InputType.TYPE_NULL
 
         editText.setOnClickListener {
+            onPopupShownListener?.onShown()
             popup.show(selection)
         }
 
@@ -838,6 +842,18 @@ open class MaterialSpinner @JvmOverloads constructor(
          * @param [id] The row id of the item that was clicked.
          */
         fun onItemClick(parent: MaterialSpinner, view: View?, position: Int, id: Long)
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when an popup is shown.
+     */
+    interface OnPopupShownListener {
+
+        /**
+         * Callback method to be invoked when an item in this popup has been shown.
+         *
+         */
+        fun onShown()
     }
 
     /**
